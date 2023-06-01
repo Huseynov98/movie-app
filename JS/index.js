@@ -14,6 +14,7 @@ addMovieButton.addEventListener ('click', function() {
     renderMovies();
     
     clearInput();
+
     
 });
 
@@ -35,7 +36,6 @@ function addMovie ({text}) {
     });
 }
 
-addMovie();
 
 function getMovie () {
     return movies;
@@ -51,7 +51,7 @@ function renderMovies () {
                 <li class='movies' id='closeMovies'>
                 <label class="checkbox-label">
                     <div class="form-checkbox">
-                      <input id="switch" class="form-default" type="checkbox" required>
+                      <input id="switch" class="form-default" type="checkbox">
                       <span class="form-custom">
                       <p class='movies__text'>${movie.text}</p>
                       </span>
@@ -63,14 +63,12 @@ function renderMovies () {
 });
     moviesNode.innerHTML = moviesHTML; 
 }
-console.log(addMovie());
 
 function  clearInput(){
     addMoviesInput.value = '';
 };
 
 function alerted(){
-    // let element = document.getElementById('closeMovies');
-    // document.body.removeChild(element);
-    document.getElementById('closeMovies').remove();
+    movies.splice('#closeMovies', 1);
+    renderMovies();
 }
