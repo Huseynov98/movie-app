@@ -2,7 +2,6 @@
 const addMoviesInput = document.getElementById('movieInput');
 const addMovieButton = document.getElementById('movieButton');
 const moviesNode = document.getElementById('movies');
-const closeButtonNode = document.getElementById('closeButton');
 
 const movies = [];
 
@@ -49,7 +48,7 @@ function renderMovies () {
 
     movies.forEach(movie => {
         moviesHTML +=  `
-                <li class='movies'>
+                <li class='movies' id='closeMovies'>
                 <label class="checkbox-label">
                     <div class="form-checkbox">
                       <input id="switch" class="form-default" type="checkbox" required>
@@ -58,7 +57,7 @@ function renderMovies () {
                       </span>
                       </div>
                   </label>
-                    <button type="button" id="CloseButton" class="close__input-btn"></button>
+                    <button type="submit" id="submit" class="close__input-btn" onclick='alerted()'></button>
                 </li>
     `;
 });
@@ -69,15 +68,9 @@ console.log(addMovie());
 function  clearInput(){
     addMoviesInput.value = '';
 };
-document.addEventListener('DOMContentLoaded', function() {
-    const close = function() {
-        this.closest('.movies').style.display = 'none';
-    }
-     
-    let elements = document.querySelectorAll('.close__input-btn');
-     
-    for (let e of elements) {
-        e.addEventListener('click', close);
-    }
-});
-close();
+
+function alerted(){
+    // let element = document.getElementById('closeMovies');
+    // document.body.removeChild(element);
+    document.getElementById('closeMovies').remove();
+}
