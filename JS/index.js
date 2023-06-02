@@ -57,18 +57,18 @@ function renderMovies () {
                       </span>
                       </div>
                   </label>
-                    <button type="submit" id="submit" class="close__input-btn" onclick='alerted()'></button>
+                    <button type="submit" id="submit" class="close__input-btn" onclick='buttonClear()'></button>
                 </li>
     `;
 });
     moviesNode.innerHTML = moviesHTML; 
 }
 
-function  clearInput(){
+function  clearInput() {
     addMoviesInput.value = '';
 };
 
-function alerted(){
-    movies.splice('#closeMovies', 1);
+function buttonClear() {
+    movies.splice('closeMovies', 1); // Удаляет первый добавленый массив из списка
     renderMovies();
 }
