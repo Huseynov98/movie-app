@@ -1,74 +1,78 @@
-
-const addMoviesInput = document.getElementById('movieInput');
-const addMovieButton = document.getElementById('movieButton');
+const  movieInputNode = document.getElementById('movieInput');
+const addButtonNode = document.getElementById('addButton');
 const moviesNode = document.getElementById('movies');
 
-const movies = [];
+let movies = [];
 
+if(localStorage.getItem('movies')){
+    movies = JSON.parse(localStorage.getItem('movies'));
+    renderMessage();
+}
 
-addMovieButton.addEventListener ('click', function() {
-    const moviesFromUser = getMoviesFromUser();
+addButtonNode.addEventListener('click', function(){
+    createNewMovie();
 
-    addMovie(moviesFromUser);
-
-    renderMovies();
-    
     clearInput();
 
+    renderMessage();
+        
     
+});
+
+function createNewMovie(){
+    let newMovie = {
+        text: movieInputNode.value,
+        checked: false
+    };
+    
+    movies.push(newMovie);
+    renderMessage();
+    localStorage.setItem('movies', JSON.stringify(movies));
+}
+
+
+movieInputNode.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+        createNewMovie();
+        clearInput();
+    }    
 });
 
 
 
+function clearInput(){
+    movieInputNode.value = '';
+}
 
-function getMoviesFromUser (){
-    const text = addMoviesInput.value;
+function renderMessage() {
+    let renderMessage = '';
 
-    return {
-        text: text
-    };
-};
-
-
-function addMovie ({text}) {
-    movies.push({
-        text
+    movies.forEach(function(item, i){
+       renderMessage += `
+            <li class='close__Movie'>
+            <div class="form-checkbox">
+                <label class="checkbox-label" for='item_${i}'>
+                    <input type='checkbox' class="form-default" id='item_${i}' ${item.checked ? 'checked' : 2}>
+                    <span class="form-custom">
+                    <p class='movies__text'>${item.text}</p>
+                    </span>
+                </label>
+            </div>
+                <button class='close' data-action='delete'></button>
+            </li>
+       `;
+        moviesNode.innerHTML = renderMessage;
     });
 }
 
+moviesNode.addEventListener('click', deleteMovie);
 
-function getMovie () {
-    return movies;
-}
 
-function renderMovies () {
-    const movies = getMovie();
-
-    let moviesHTML ='';
-
-    movies.forEach(movie => {
-        moviesHTML +=  `
-                <li class='movies' id='closeMovies'>
-                <label class="checkbox-label">
-                    <div class="form-checkbox">
-                      <input id="switch" class="form-default" type="checkbox">
-                      <span class="form-custom">
-                      <p class='movies__text'>${movie.text}</p>
-                      </span>
-                      </div>
-                  </label>
-                    <button type="submit" id="submit" class="close__input-btn" onclick='buttonClear()'></button>
-                </li>
-    `;
-});
-    moviesNode.innerHTML = moviesHTML; 
-}
-
-function  clearInput() {
-    addMoviesInput.value = '';
-};
-
-function buttonClear() {
-    movies.splice('closeMovies', 1); // Удаляет первый добавленый массив из списка
-    renderMovies();
+function deleteMovie(event){
+    if(event.target.dataset.action === 'delete') {
+        console.log('delete')
+     const parentNode = event.target.closest('.close__Movie');
+     movies.splice('close__Movies', 1);
+     parentNode.remove();
+    }
 }

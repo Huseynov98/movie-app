@@ -82,7 +82,7 @@ input {
   background-color: transparent;
   border-bottom: 1px solid #696a6b;
 }
-.input__btn {
+.addButton {
   cursor: pointer;
   margin-bottom: 10px;
   width: 62px;
@@ -95,14 +95,14 @@ input {
   background-position: center;
 }
 
-.movies__list {
+.movieList {
   margin-top: 40px;
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.movies {
+.close__Movie {
   padding: 0 20px;
   display: flex;
   align-items: center;
@@ -113,7 +113,7 @@ input {
   border-radius: 10px;
 }
 
-.movies:hover {
+.close__Movie:hover {
   background: #3a3939;
   opacity: 0.5;
   cursor: pointer;
@@ -191,7 +191,7 @@ input:checked + span {
   font-size: 20px;
   line-height: 14px;
 }
-.close__input-btn {
+.close {
   width: 24px;
   height: 24px;
   border: transparent;
