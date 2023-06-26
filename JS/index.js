@@ -1,78 +1,85 @@
-const  movieInputNode = document.getElementById('movieInput');
+const movieInputNode = document.getElementById('movieInput');
 const addButtonNode = document.getElementById('addButton');
 const moviesNode = document.getElementById('movies');
 
 let movies = [];
 
-if(localStorage.getItem('movies')){
-    movies = JSON.parse(localStorage.getItem('movies'));
-    renderMessage();
+if (localStorage.getItem('movies')) {
+  movies = JSON.parse(localStorage.getItem('movies'));
+  renderMovies();
 }
 
-addButtonNode.addEventListener('click', function(){
+addButtonNode.addEventListener('click', function () {
+  createNewMovie();
+  clearInput();
+});
+
+function createNewMovie() {
+  const newMovie = {
+    text: movieInputNode.value,
+    checked: false,
+  };
+
+  movies.push(newMovie);
+  saveMoviesToLocalStorage();
+  renderMovies();
+}
+
+movieInputNode.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
     createNewMovie();
-
     clearInput();
-
-    renderMessage();
-        
-    
+  }
 });
 
-function createNewMovie(){
-    let newMovie = {
-        text: movieInputNode.value,
-        checked: false
-    };
-    
-    movies.push(newMovie);
-    renderMessage();
-    localStorage.setItem('movies', JSON.stringify(movies));
+function clearInput() {
+  movieInputNode.value = '';
 }
 
+function renderMovies() {
+  let renderHTML = '';
 
-movieInputNode.addEventListener('keydown', function(e){
-    if(e.key === 'Enter'){
-        createNewMovie();
-        clearInput();
-    }    
-});
+  movies.forEach(function (movie, index) {
+    renderHTML += `
+      <li class='close__Movie'>
+        <div class="form-checkbox">
+          <label class="checkbox-label" for='item_${index}'>
+            <input type='checkbox' class="form-default" id='item_${index}' ${
+      movie.checked ? 'checked' : ''
+    }>
+            <span class="form-custom">
+              <p class='movies__text'>${movie.text}</p>
+            </span>
+          </label>
+        </div>
+        <button class='close' data-action='delete' data-index='${index}'></button>
+      </li>
+    `;
+  });
 
+  moviesNode.innerHTML = renderHTML;
 
+  const deleteButtons = moviesNode.querySelectorAll('.close');
+  deleteButtons.forEach(function (button) {
+    button.addEventListener('click', deleteMovie);
+  });
 
-function clearInput(){
-    movieInputNode.value = '';
-}
-
-function renderMessage() {
-    let renderMessage = '';
-
-    movies.forEach(function(item, i){
-       renderMessage += `
-            <li class='close__Movie'>
-            <div class="form-checkbox">
-                <label class="checkbox-label" for='item_${i}'>
-                    <input type='checkbox' class="form-default" id='item_${i}' ${item.checked ? 'checked' : 2}>
-                    <span class="form-custom">
-                    <p class='movies__text'>${item.text}</p>
-                    </span>
-                </label>
-            </div>
-                <button class='close' data-action='delete'></button>
-            </li>
-       `;
-        moviesNode.innerHTML = renderMessage;
+  const checkboxes = moviesNode.querySelectorAll('.form-default');
+  checkboxes.forEach(function (checkbox, index) {
+    checkbox.addEventListener('change', function () {
+      movies[index].checked = this.checked;
+      saveMoviesToLocalStorage();
     });
+  });
 }
 
-moviesNode.addEventListener('click', deleteMovie);
+function deleteMovie(event) {
+  const index = parseInt(event.target.dataset.index);
+  movies.splice(index, 1);
+  saveMoviesToLocalStorage();
+  renderMovies();
+}
 
-
-function deleteMovie(event){
-    if(event.target.dataset.action === 'delete') {
-        console.log('delete')
-     const parentNode = event.target.closest('.close__Movie');
-     movies.splice('close__Movies', 1);
-     parentNode.remove();
-    }
+function saveMoviesToLocalStorage() {
+  localStorage.setItem('movies', JSON.stringify(movies));
 }
