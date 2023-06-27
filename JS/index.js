@@ -15,14 +15,21 @@ addButtonNode.addEventListener('click', function () {
 });
 
 function createNewMovie() {
-  const newMovie = {
-    text: movieInputNode.value,
-    checked: false,
-  };
+  const movieText = movieInputNode.value.trim(); // Удаляем лишние пробелы в начале и конце строки
 
-  movies.push(newMovie);
-  saveMoviesToLocalStorage();
-  renderMovies();
+  if (movieText !== '') { // Проверяем, что строка не пустая
+    const newMovie = {
+      text: movieText,
+      checked: false,
+    };
+
+    movies.push(newMovie);
+    saveMoviesToLocalStorage();
+    renderMovies();
+  } else {
+    // Отображаем всплывающее окно с сообщением об ошибке
+    showAlert('Пожалуйста введите названия фильма');
+  }
 }
 
 movieInputNode.addEventListener('keydown', function (e) {
@@ -82,4 +89,16 @@ function deleteMovie(event) {
 
 function saveMoviesToLocalStorage() {
   localStorage.setItem('movies', JSON.stringify(movies));
+}
+
+function showAlert(message) {
+  const popup = document.createElement('div');
+  popup.className = 'popup';
+  popup.textContent = message;
+
+  document.body.appendChild(popup);
+
+  setTimeout(function () {
+    popup.remove();
+  }, 2000);
 }

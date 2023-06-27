@@ -1,0 +1,213 @@
+body {
+  width: 100%;
+  background: #181818;
+  overflow-x: hidden;
+  font-family: "Arimo", sans-serif;
+  letter-spacing: -0.04em;
+  font-weight: 400;
+}
+input {
+  font-family: "Arimo", sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1440px;
+}
+.container {
+  margin: 0 auto;
+  width: 930px;
+}
+.movie__text-wrapper {
+  margin-left: 83px;
+  margin-top: 80px;
+  display: flex;
+  gap: 1px;
+  align-items: center;
+}
+.movie__title-text {
+  padding: 5px;
+  width: 183px;
+  height: 30px;
+  text-align: center;
+  background: #6532f8;
+  border: 1px solid #6532f8;
+  border-radius: 200px;
+  color: #f3f6f9;
+  font-size: 15px;
+  line-height: 17px;
+}
+.movie__year {
+  padding: 5px;
+  width: 75px;
+  height: 30px;
+  text-align: center;
+  background: #6532f8;
+  border: 1px solid #6532f8;
+  border-radius: 200px;
+  color: #f3f6f9;
+  font-size: 15px;
+  line-height: 17px;
+}
+.Movie__title {
+  margin: 20px 0px 45px 83px;
+  font-size: 120.416px;
+  line-height: 138px;
+  color: #f3f6f9;
+}
+.movie {
+  max-width: 930px;
+  background: #232323;
+  border-radius: 20px 20px 0px 0px;
+  padding: 70px 60px 70px 87px;
+}
+.movie__container {
+}
+.movie__input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.movie__input {
+  width: 411px;
+  padding-bottom: 15px;
+  font-size: 30px;
+  line-height: 34px;
+  letter-spacing: -0.02em;
+  color: #f3f6f9;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px solid #696a6b;
+}
+.addButton {
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 62px;
+  height: 62px;
+  border: none;
+  outline: none;
+  border-radius: 100px;
+  background: url("../resources/Vector.svg") no-repeat;
+  background-color: #6532f8;
+  background-position: center;
+}
+
+.movieList {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.close__Movie {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 790px;
+  height: 71px;
+  background: #3a3939;
+  border-radius: 10px;
+}
+
+.close__Movie:hover {
+  background: #3a3939;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.form-label {
+  margin-right: 25px;
+  flex: 1 1 auto;
+}
+
+.form-label:last-child {
+  margin-right: 0;
+}
+
+.text-label {
+  display: block;
+  margin-bottom: 50px;
+}
+
+.form-input,
+.form-text {
+  display: block;
+  border: 1px solid #d7dadd;
+  border-radius: 4px;
+  padding: 13px 16px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.form-checkbox {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  margin-top: 5px;
+  margin: 5px 12px 0px 0px;
+}
+
+.form-default {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+.form-default:checked + .form-custom {
+  background: 50% 50% no-repeat, #6532f8;
+  border: 1px solid #f3f6f9;
+}
+
+.form-custom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid #f3f6f9;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+input:checked + span {
+  letter-spacing: -0.02em;
+  text-decoration-line: line-through;
+  color: #f3f6f9;
+  opacity: 0.5;
+}
+
+.movies__text {
+  width: 600px;
+  padding-left: 20px;
+  letter-spacing: -0.02em;
+  color: #f3f6f9;
+  font-size: 20px;
+  line-height: 14px;
+}
+.close {
+  width: 24px;
+  height: 24px;
+  border: transparent;
+  background-color: transparent;
+  background: url("../resources/close-btn.svg") no-repeat;
+  cursor: pointer;
+}
+
+.popup {
+  position: relative;
+  top: 50%;
+  width: 500px;
+  height: 100px;
+  display: block;
+  background: #181818;
+  color: #fff;
+  background: #000;
+  text-align: center;
+}
