@@ -4,19 +4,24 @@ const moviesNode = document.getElementById('movies');
 
 let movies = [];
 
-loadMoviesFromLocalStorage();
-renderMovies();
-
+init();
 
 addButtonNode.addEventListener('click', function () {
   createNewMovie();
   clearInput();
 });
 
-function createNewMovie() {
-  const movieText = movieInputNode.value.trim(); // Удаление лишных пробелов и пустых строк
+function init() {
+  if (localStorage.getItem('movies')) {
+    movies = JSON.parse(localStorage.getItem('movies'));
+  }
+  renderMovies();
+}
 
-  if (movieText !== '') { // Проверяем, что строка не пустая
+function createNewMovie() {
+  const movieText = movieInputNode.value.trim();
+
+  if (movieText !== '') {
     const newMovie = {
       text: movieText,
       checked: false,
@@ -26,17 +31,9 @@ function createNewMovie() {
     saveMoviesToLocalStorage();
     renderMovies();
   } else {
-    // Отображаем всплывающее окно с сообщением об ошибке
     showAlert('Пожалуйста, введите название фильма.');
   }
 }
-
-movieInputNode.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') {
-    createNewMovie();
-    clearInput();
-  }
-});
 
 function clearInput() {
   movieInputNode.value = '';
@@ -85,7 +82,6 @@ function deleteMovie(event) {
   saveMoviesToLocalStorage();
   renderMovies();
 
-  // Обновляем значения data-index у кнопок удаления
   const deleteButtons = moviesNode.querySelectorAll('.close');
   deleteButtons.forEach(function (button, newIndex) {
     button.dataset.index = newIndex;
@@ -96,11 +92,11 @@ function saveMoviesToLocalStorage() {
   localStorage.setItem('movies', JSON.stringify(movies));
 }
 
-function loadMoviesFromLocalStorage() {
-  if (localStorage.getItem('movies')) {
-    movies = JSON.parse(localStorage.getItem('movies'));
-  }
-}
+// function loadMoviesFromLocalStorage() {
+//   if (localStorage.getItem('movies')) {
+//     movies = JSON.parse(localStorage.getItem('movies'));
+//   }
+// }
 
 function showAlert(message) {
   const popup = document.createElement('div');
